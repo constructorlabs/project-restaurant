@@ -1,14 +1,15 @@
 import React from "react";
 
-function MenuItem(props) {
+function MenuItem({item}) {
   
-  const { item } = props;
+  //const { item } = props; !!! {item} within fn avoids the need for const on this line
   return (
     <div className="menuItem">
+    <h3>MENU LIST</h3>
       {item.map(function(element) {
         return <p key={element.name}>{element.name} {element.price} 
                   <button>Select</button>
-                </p>;
+                </p>
       })}
 
 
