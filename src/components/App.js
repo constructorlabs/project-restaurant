@@ -2,7 +2,6 @@ import React from "react";
 import MenuItem from "./MenuItem";
 import Location from "./Location";
 import Header from "./Header";
-import Drinks from "./Drinks";
 import Orders from "./Orders";
 
 class App extends React.Component {
@@ -33,20 +32,34 @@ class App extends React.Component {
 
       order: [],
       totalOrder: 0,
+      lastOrderItemId: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const orderItem = {
+      id: this.state.lastOrderItemId + 1,
       name: event.target.name,
-      value: event.target.value
-    }
+      value: event.target.value,
+      }
     this.setState({
+      lastOrderItemId: parseInt(this.state.lastOrderItemId +1),
       order: [...this.state.order , orderItem],
       totalOrder: parseInt(this.state.totalOrder)  + parseInt(orderItem.value)
     });
+  }
+
+  // words.filter(word => word.length > 6);
+
+  handleDelete(event){
+    const newOrder = this.state.order;
+    this.setState({
+      order: newOrder.filter(orderItem => orderItem.id != event.target.id),
+      totalOrder: parseInt(this.state.totalOrder) - parseInt(event.target.value)
+    })
   }
  
   render() {
@@ -67,6 +80,8 @@ class App extends React.Component {
         <Orders 
           order={this.state.order} 
           totalOrder={this.state.totalOrder}
+          deleteItem={this.handleDelete}
+          title="Delete Item"
         />
       </div>
     );

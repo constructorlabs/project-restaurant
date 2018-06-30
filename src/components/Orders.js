@@ -2,13 +2,22 @@ import React from "react";
 
 class Orders extends React.Component {
   render() {
-  const { order, totalOrder } = this.props; 
+  const { order, totalOrder, deleteItem, title } = this.props; 
     return (
       <div>
         <h3>Your order is : </h3>
-        {order.map(function(orderItem, papa) {
+        {order.map(function(orderItem) {
           return (
-            <div key={papa}>{`${orderItem.name}: ${orderItem.value} $`}</div>
+            <div key={orderItem.id}>
+              {`${orderItem.name}: ${orderItem.value} $`}
+              <button 
+                id={orderItem.id} 
+                onClick={deleteItem}
+                value={orderItem.value}
+              >
+                {title}
+              </button>
+            </div>
           )
         })}
         <h3>Your total is : </h3>
