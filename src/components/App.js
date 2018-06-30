@@ -31,16 +31,21 @@ class App extends React.Component {
         { id: 2, address: "Old Street", postcode: "W1 9BB", city: "Manchester" }
       ],
 
-      order: []
+      order: [],
+      totalOrder: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("button was clicked", event.target.name, event.target.value);
+    const orderItem = {
+      name: event.target.name,
+      value: event.target.value
+    }
     this.setState({
-      order: [...this.state.order , event.target.name]
+      order: [...this.state.order , orderItem],
+      totalOrder: parseInt(this.state.totalOrder)  + parseInt(orderItem.value)
     });
   }
  
@@ -48,11 +53,21 @@ class App extends React.Component {
     return (
       <div className="appContent">
         <Header name="Rubber Duck´s and Co Brasserie" />
-        {/* <MenuItem item={{ id: 1, name: "cheesburguer", price: 10 }} /> */}
-        <MenuItem item={this.state.menu} clickHandler={this.handleSubmit} />
-        <Drinks drinks={this.state.drinksMenu} />
+        <MenuItem 
+          item={this.state.menu} 
+          clickHandler={this.handleSubmit} 
+          title="Menu list"
+        />
+        <MenuItem 
+          item={this.state.drinksMenu} 
+          clickHandler={this.handleSubmit} 
+          title="Beer list"
+        />
         <Location location={this.state.location} />
-        <Orders order={this.state.order} />
+        <Orders 
+          order={this.state.order} 
+          totalOrder={this.state.totalOrder}
+        />
       </div>
     );
   }
@@ -60,10 +75,4 @@ class App extends React.Component {
 
 export default App;
 
-{
-  /* // location={{
-          //   address: "Rivington St. 1-3",
-          //   postcode: "N1 3AA",
-          //   city: "London"
-          // }} */
-}
+
