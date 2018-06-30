@@ -1,20 +1,24 @@
 import React from "react";
 
 function MenuItem(props) {
-  
-  const { item } = props;
+  const { item, title } = props; //!!! {item} within fn avoids the need for const on this line
   return (
     <div className="menuItem">
+      <h3>{title}</h3>
       {item.map(function(element) {
-        return <p key={element.name}>{element.name} {element.price} 
-                  <button>Select</button>
-                </p>;
+        return (
+          <p key={element.name}>
+            {element.name} {element.price}
+            <button
+              onClick={props.clickHandler} 
+              name={element.name}
+              value={element.price}
+            >
+              Select
+            </button>
+          </p>
+        );
       })}
-
-
-      {/* <p>Menu Id : {props.id}</p>
-      <p> Meal : {props.name}</p>
-      <p>Price :{props.price}</p> */}
     </div>
   );
 }
