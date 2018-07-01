@@ -10,9 +10,10 @@ class App extends React.Component {
 
     this.state = {
       menu: [
-        { id: 1, name: "Cheesburguer", price: 10 },
-        { id: 2, name: "Chicken", price: 20 },
-        { id: 3, name: "Beef", price: 30 }
+        { id: 1, name: "Cheesburguer", price: 5 },
+        { id: 2, name: "Chicken", price: 10 },
+        { id: 3, name: "Beef", price: 15},
+        { id: 4, name: "Turkey", price: 20 }
       ],
       drinksMenu: [
         { id: 1, name: "Budweiser", price: 3 },
@@ -33,26 +34,25 @@ class App extends React.Component {
       order: [],
       totalOrder: 0,
       lastOrderItemId: 0,
-    };
+      };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    
     const orderItem = {
       id: this.state.lastOrderItemId + 1,
       name: event.target.name,
       value: event.target.value,
-      }
+     }
     this.setState({
       lastOrderItemId: parseInt(this.state.lastOrderItemId +1),
       order: [...this.state.order , orderItem],
       totalOrder: parseInt(this.state.totalOrder)  + parseInt(orderItem.value)
     });
   }
-
-  // words.filter(word => word.length > 6);
 
   handleDelete(event){
     const newOrder = this.state.order;
@@ -61,6 +61,8 @@ class App extends React.Component {
       totalOrder: parseInt(this.state.totalOrder) - parseInt(event.target.value)
     })
   }
+
+
  
   render() {
     return (
@@ -83,6 +85,7 @@ class App extends React.Component {
           deleteItem={this.handleDelete}
           title="Delete Item"
         />
+        
       </div>
     );
   }

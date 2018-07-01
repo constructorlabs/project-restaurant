@@ -1,7 +1,7 @@
 import React from "react";
 
 function MenuItem(props) {
-  const { item, title } = props; //!!! {item} within fn avoids the need for const on this line
+  const { item, title } = props; //!!! {item, etc...} within fn avoids the need for "props" on this line
   return (
     <div className="menuItem">
       <h3>{title}</h3>
